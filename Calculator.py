@@ -1,0 +1,100 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "dee56d30",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# GUI Calculator\n",
+    "\n",
+    "import tkinter as tk\n",
+    "from tkinter import messagebox\n",
+    "\n",
+    "def click(event):\n",
+    "    global expression\n",
+    "    text = event.widget.cget(\"text\")\n",
+    "    if text == \"=\":\n",
+    "        try:\n",
+    "            result = eval(expression)\n",
+    "            expression = str(result)\n",
+    "            input_text.set(expression)\n",
+    "        except Exception as e:\n",
+    "            messagebox.showerror(\"Error\", \"Invalid Expression\")\n",
+    "            expression = \"\"\n",
+    "            input_text.set(expression)\n",
+    "    elif text == \"C\":\n",
+    "        expression = \"\"\n",
+    "        input_text.set(expression)\n",
+    "    else:\n",
+    "        expression += text\n",
+    "        input_text.set(expression)\n",
+    "\n",
+    "root = tk.Tk()\n",
+    "root.title(\"Calculator\")\n",
+    "\n",
+    "expression = \"\"\n",
+    "input_text = tk.StringVar()\n",
+    "\n",
+    "input_frame = tk.Frame(root)\n",
+    "input_frame.pack()\n",
+    "\n",
+    "input_field = tk.Entry(input_frame, textvar=input_text, font=('arial', 18, 'bold'), bd=30, insertwidth=4, width=14, borderwidth=4)\n",
+    "input_field.grid(row=0, column=0)\n",
+    "\n",
+    "button_frame = tk.Frame(root)  \n",
+    "button_frame.pack()\n",
+    "\n",
+    "buttons = [\n",
+    "    '7', '8', '9', '/',\n",
+    "    '4', '5', '6', '*',\n",
+    "    '1', '2', '3', '-',\n",
+    "    'C', '0', '=', '+'\n",
+    "]\n",
+    "\n",
+    "row = 1\n",
+    "col = 0\n",
+    "for button in buttons:\n",
+    "    btn = tk.Button(button_frame, text=button, font=('arial', 18, 'bold'), padx=20, pady=20)\n",
+    "    btn.grid(row=row, column=col)\n",
+    "    btn.bind(\"<Button-1>\", click)\n",
+    "    col += 1\n",
+    "    if col > 3:\n",
+    "        col = 0\n",
+    "        row += 1\n",
+    "\n",
+    "root.mainloop()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fa9e7722",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
